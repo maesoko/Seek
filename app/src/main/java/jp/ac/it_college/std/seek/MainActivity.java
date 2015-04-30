@@ -13,16 +13,14 @@ import java.util.Random;
 public class MainActivity extends Activity
         implements AdapterView.OnItemClickListener{
 
-    private String[] itemNames;
-    private int[] itemResIdNumbers;
+    private int[] itemResNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GridItemData gridItemData = new GridItemData();
-        itemNames = gridItemData.getItemNames();
-        itemResIdNumbers = gridItemData.getItemResNumbers();
+        itemResNumbers = gridItemData.getItemResNumbers();
 
         GridView gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(new GridItemAdapter(this));
@@ -31,12 +29,12 @@ public class MainActivity extends Activity
         Random random = new Random();
         ImageView imageView = (ImageView) findViewById(R.id.imgView_seek);
         imageView.setImageResource(
-                itemResIdNumbers[random.nextInt(itemResIdNumbers.length)]);
+                itemResNumbers[random.nextInt(itemResNumbers.length)]);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, itemNames[position], Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, itemResNumbers[position], Toast.LENGTH_SHORT).show();
     }
 }

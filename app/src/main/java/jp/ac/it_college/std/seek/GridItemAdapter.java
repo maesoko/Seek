@@ -6,37 +6,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class GridItemAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private String[] itemNames;
-    private int[] itemResIdNumbers;
+    private int[] itemResNumbers;
 
     private static class ViewHolder {
         public ImageView imageView;
-        public TextView textView;
     }
-
 
     public GridItemAdapter(Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         GridItemData gridItemData = new GridItemData();
-        itemNames = gridItemData.getItemNames();
-        itemResIdNumbers = gridItemData.getItemResNumbers();
+        itemResNumbers = gridItemData.getItemResNumbers();
     }
 
     @Override
     public int getCount() {
-        return itemNames.length;
+        return itemResNumbers.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return itemNames[position];
+        return itemResNumbers[position];
     }
 
     @Override
@@ -51,14 +46,12 @@ public class GridItemAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.grid_item, null);
             holder = new ViewHolder();
             holder.imageView = (ImageView)convertView.findViewById(R.id.itemImageView);
-            holder.textView = (TextView)convertView.findViewById(R.id.itemTextView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.imageView.setImageResource(itemResIdNumbers[position]);
-        holder.textView.setText(itemNames[position]);
+        holder.imageView.setImageResource(itemResNumbers[position]);
 
         return convertView;
     }
