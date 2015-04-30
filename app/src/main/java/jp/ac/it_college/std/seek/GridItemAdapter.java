@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.util.List;
+
 public class GridItemAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private int[] itemResNumbers;
+    private List<Integer> itemResNumbers;
 
     private static class ViewHolder {
         public ImageView imageView;
@@ -26,12 +28,12 @@ public class GridItemAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return itemResNumbers.length;
+        return itemResNumbers.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return itemResNumbers[position];
+        return itemResNumbers.get(position);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class GridItemAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.imageView.setImageResource(itemResNumbers[position]);
+        holder.imageView.setImageResource(itemResNumbers.get(position));
 
         return convertView;
     }

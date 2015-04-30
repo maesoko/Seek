@@ -8,12 +8,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends Activity
         implements AdapterView.OnItemClickListener{
 
-    private int[] itemResNumbers;
+    private List<Integer> itemResNumbers;
+    private GridView gridView;
+    private ImageView seekImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,19 +25,21 @@ public class MainActivity extends Activity
         GridItemData gridItemData = new GridItemData();
         itemResNumbers = gridItemData.getItemResNumbers();
 
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(new GridItemAdapter(this));
         gridView.setOnItemClickListener(this);
 
-        Random random = new Random();
-        ImageView imageView = (ImageView) findViewById(R.id.imgView_seek);
-        imageView.setImageResource(
-                itemResNumbers[random.nextInt(itemResNumbers.length)]);
+        int position = new Random().nextInt(itemResNumbers.size());
+        seekImageView = (ImageView) findViewById(R.id.imgView_seek);
+        seekImageView.setImageResource(itemResNumbers.get(position));
+        seekImageView.setTag(position);
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, itemResNumbers[position], Toast.LENGTH_SHORT).show();
+        if ((int) seekImageView.getTag() == position) {
+            Toast.makeText(this, "true", Toast.LENGTH_SHORT).show();
+        }
     }
 }
